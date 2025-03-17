@@ -1,17 +1,29 @@
+import { UUID } from "crypto";
 import { Timestamp } from "firebase/firestore";
+import { IntaniaLocation } from "./intania_location";
 
 export type Workshop = {
-  id: string; // 123
+  id: UUID;
   name: string;
-  location: string;
-  workshopSlots: WorkshopSlot[];
+  slots: WorkshopSlot[];
+  location?: IntaniaLocation;
 };
 
 export type WorkshopSlot = {
-  id: string; // 123-1
+  id: UUID;
+  workshopId: UUID;
   startTime: Timestamp;
   endTime: Timestamp;
-  currentParticipants: number;
-  maxParticipants: number;
-  userStatus: "Registered" | "Not Registered" | "Full"; // generate per user's request
+  currentRegistrantCount: number;
+  maxRegistrantCount?: number;
+};
+
+export type WorkshopSlotResponse = {
+  id: UUID;
+  workshopId: UUID;
+  startTime: Timestamp;
+  endTime: Timestamp;
+  currentRegistrantCount: number;
+  maxRegistrantCount?: number;
+  visitorStatus?: "registered" | "checkedIn";
 };
