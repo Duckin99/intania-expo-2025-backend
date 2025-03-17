@@ -1,5 +1,5 @@
 import { UUID } from "crypto";
-import { IntaniaLocation } from "./intania_location";
+import { IntaniaLocation } from "./intaniaLocation";
 
 export type Event = {
   id: UUID;

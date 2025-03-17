@@ -1,13 +1,13 @@
+import { Building, Floor, Room } from "@/common/types/buildingFloorRoom";
+import { Competition } from "@/common/types/competition";
+import { Event, EventTag } from "@/common/types/event";
+import { IntaniaLocation } from "@/common/types/intaniaLocation";
+import { Major } from "@/common/types/major";
+import { ExpoStaff, Visitor, WorkshopStaff } from "@/common/types/user";
+import { Workshop, WorkshopSlot } from "@/common/types/workshop";
 import { PrismaClient } from "@prisma/client";
 import { randomUUID } from "crypto";
 import * as dotenv from "dotenv";
-import { Building, Floor, Room } from "../types/building_floor_room";
-import { Competition } from "../types/competition";
-import { Event, EventTag } from "../types/event";
-import { IntaniaLocation } from "../types/intania_location";
-import { Major } from "../types/major";
-import { ExpoStaff, Visitor, WorkshopStaff } from "../types/user";
-import { Workshop, WorkshopSlot } from "../types/workshop";
 
 const prisma = new PrismaClient();
 
