@@ -1,19 +1,20 @@
+import { IntaniaLocation } from "@prisma/client";
 import { UUID } from "crypto";
-import { Timestamp } from "firebase/firestore";
-import { IntaniaLocation } from "./intania_location";
 
 export type Workshop = {
   id: UUID;
   name: string;
   slots: WorkshopSlot[];
-  location?: IntaniaLocation;
+
+  intaniaLocation?: IntaniaLocation;
+  intaniaLocationId?: string;
 };
 
 export type WorkshopSlot = {
   id: UUID;
   workshopId: UUID;
-  startTime: Timestamp;
-  endTime: Timestamp;
+  startTime: Date;
+  endTime: Date;
   currentRegistrantCount: number;
   maxRegistrantCount?: number;
 };
@@ -21,8 +22,8 @@ export type WorkshopSlot = {
 export type WorkshopSlotResponse = {
   id: UUID;
   workshopId: UUID;
-  startTime: Timestamp;
-  endTime: Timestamp;
+  startTime: Date;
+  endTime: Date;
   currentRegistrantCount: number;
   maxRegistrantCount?: number;
   visitorStatus?: "registered" | "checkedIn";
