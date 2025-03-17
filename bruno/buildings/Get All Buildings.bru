@@ -1,0 +1,27 @@
+meta {
+  name: Get All Buildings
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url}}/api/buildings
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "sorting": {
+      "columns": [
+        "name"
+      ],
+      "ascending": true
+    }
+  }
+}
+
+body:form-urlencoded {
+  columns: sdfldsa
+  ascending: true
+}

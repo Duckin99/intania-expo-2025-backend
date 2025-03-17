@@ -145,6 +145,30 @@ const buildings: Building[] = [
     slug: "",
     images: [],
   },
+  {
+    id: randomUUID(),
+    name: "ENG1",
+    slug: "",
+    images: [],
+  },
+  {
+    id: randomUUID(),
+    name: "ENG2",
+    slug: "",
+    images: [],
+  },
+  {
+    id: randomUUID(),
+    name: "ENG100",
+    slug: "",
+    images: [],
+  },
+  {
+    id: randomUUID(),
+    name: "ENG4",
+    slug: "",
+    images: [],
+  },
 ];
 
 const floors: Floor[] = [
