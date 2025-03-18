@@ -7,12 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db.studio": "npx prisma studio",
+    "generate": "npx prisma generate",
+    "db.create": "docker create --name intania-expo-2025-db --env-file .env -p 5432:5432 bitnami/postgresql",
+    "db.start": "docker start -i intania-expo-2025-db",
     "db.reset": "npx prisma migrate reset",
     "db.migrate": "npx prisma migrate dev",
     "db.seed": "npx tsx ./prisma/seed.ts",
-    "db.create": "docker create --name intania-expo-2025-db --env-file .env -p 5432:5432 bitnami/postgresql",
-    "db.start": "docker start -i intania-expo-2025-db"
+    "db.studio": "npx prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",
