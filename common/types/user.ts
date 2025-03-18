@@ -7,16 +7,16 @@ export type User = {
 };
 
 export type ExpoStaff = {
-  role: "expoStaff";
+  role: "EXPO_STAFF";
 } & User;
 
 export type WorkshopStaff = {
-  role: "workshopStaff";
+  role: "WORKSHOP_STAFF";
   workshopId: UUID;
 } & User;
 
 export type Visitor = {
-  role: "visitor";
+  role: "VISITOR";
   sixDigitCode: string;
   name: string;
   surname: string;

@@ -65,21 +65,21 @@ async function main() {
 
   await prisma.user.deleteMany();
   await prisma.user.createMany({
-    data:expoStaffs
+    data: expoStaffs,
   });
   await prisma.user.createMany({
-    data:workshopStaffs
-  })
+    data: workshopStaffs,
+  });
   await prisma.user.createMany({
-    data:visitors
-  })
+    data: visitors,
+  });
 }
 
 const expoStaffs: ExpoStaff[] = [
   {
     id: randomUUID(),
     email: "staff1_expo@chula.ac.th",
-    role: "expoStaff",
+    role: "EXPO_STAFF",
   },
 ];
 
@@ -90,7 +90,7 @@ const workshopStaffs: WorkshopStaff[] = [
     id: randomUUID(),
     email: "staff1_workshop@chula.ac.th",
     workshopId: workshopsId[0],
-    role: "workshopStaff",
+    role: "WORKSHOP_STAFF",
   },
 ];
 
@@ -121,7 +121,7 @@ const visitors: Visitor[] = [
     teacherSchool: "",
     teacherProvince: "",
     subjectTaught: "",
-    role: "visitor",
+    role: "VISITOR",
   },
 ];
 
