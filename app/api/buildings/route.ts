@@ -5,46 +5,43 @@ import { fromZodError } from "zod-validation-error";
 
 // Get All Buildings
 // TODO: cannot get body if using GET method
-export async function POST(request: Request) {
-  let body;
+export async function GET(request: Request) {
   try {
-    body = await request.json();
-  } catch (error) {
-    return NextResponse.json("Invalid request body", { status: 404 });
-  }
+    const { searchParams } = new URL(request.url);
 
-  let sorting = SortingSchema.parse({
-    columns: [],
-    ascending: false,
-  });
+    // Extract sorting fields (default: sort by "name")
+    const sortFields = searchParams.get("sorting")?.split(",") || [];
+    const sortOrder = searchParams.get("order") || "true"; // Default: ascending
 
-  if (body && body.sorting) {
-    const parseResponse = SortingSchema.safeParse(body.sorting);
-    if (!parseResponse.success) {
-      return NextResponse.json(
-        {
-          message: fromZodError(parseResponse.error).toString(),
-          error: parseResponse.error,
-        },
-        { status: 404 }
-      );
+    // console.log(sortFields, sortOrder);
+
+    // Build orderBy object for Prisma
+    const orderBy = sortFields.map((field) => {
+      const orderValue = sortOrder;
+
+    if (orderValue !== "true" && orderValue !== "false") {
+      throw NextResponse.json({ message: "Incorrect query" }, { status: 400 });
     }
-    sorting = parseResponse.data;
+
+    return { [field]: orderValue === "true" ? "asc" : "desc" };
+    });
+
+    // console.log(orderBy);
+
+    try {
+      const buildings = await prisma.building.findMany({
+        include: { floors: { include: { rooms: true } } },
+        orderBy,
+      });
+  
+      return NextResponse.json(buildings, { status: 200 });
+    } catch (error) {
+      return NextResponse.json({ message: "Database error", error }, { status: 500 });
+    }
+
   }
-
-  // TODO: handle error?
-  const buildings = await prisma.building.findMany({
-    include: {
-      floors: {
-        include: { rooms: true },
-      },
-    },
-    orderBy: sorting.columns.map((column) => {
-      let obj: any = {};
-      obj[column] = sorting.ascending ? "asc" : "desc";
-      return obj;
-    }),
-  });
-
-  return NextResponse.json(buildings, { status: 200 });
+  catch (error) {
+    if(error) return error
+    return NextResponse.json({ message: "Internal Server Error", error }, { status: 500 });
+  }
 }
