@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -50,6 +44,8 @@ model User {
 
   // not needed
   tokens Token[]
+
+  registeredWorkshopSlotOnVisitor RegisteredWorkshopSlotOnVisitor[]
 }
 
 enum Role {
@@ -149,6 +145,17 @@ model WorkshopSlot {
 
   workshop   Workshop @relation(fields: [workshopId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   workshopId String   @db.Uuid
+
+  registeredWorkshopSlotOnVisitor RegisteredWorkshopSlotOnVisitor[]
+}
+
+model RegisteredWorkshopSlotOnVisitor {
+  registeredWorkshopSlot   WorkshopSlot @relation(fields: [registeredWorkshopSlotId], references: [id])
+  registeredWorkshopSlotId String       @map("workshopSlotId") @db.Uuid
+  visitor                  User         @relation(fields: [visitorId], references: [id])
+  visitorId                String       @map("userId") @db.Uuid
+
+  @@id([visitorId, registeredWorkshopSlotId])
 }
 
 model Competition {
