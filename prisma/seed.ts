@@ -63,35 +63,22 @@ async function main() {
   await prisma.major.deleteMany();
   await prisma.major.createMany({ data: majors });
 
-  await prisma.expoStaff.deleteMany();
-  await prisma.expoStaff.createMany({
-    data: expoStaffs.map((obj) => {
-      const { role: _, ...newObj } = obj;
-      return newObj;
-    }),
+  await prisma.user.deleteMany();
+  await prisma.user.createMany({
+    data:expoStaffs
   });
-
-  await prisma.workshopStaff.deleteMany();
-  await prisma.workshopStaff.createMany({
-    data: workshopStaffs.map((obj) => {
-      const { role: _, ...newObj } = obj;
-      return newObj;
-    }),
-  });
-
-  await prisma.visitor.deleteMany();
-  await prisma.visitor.createMany({
-    data: visitors.map((obj) => {
-      const { role: _, ...newObj } = obj;
-      return newObj;
-    }),
-  });
+  await prisma.user.createMany({
+    data:workshopStaffs
+  })
+  await prisma.user.createMany({
+    data:visitors
+  })
 }
 
 const expoStaffs: ExpoStaff[] = [
   {
     id: randomUUID(),
-    email: "staff1@chula.ac.th",
+    email: "staff1_expo@chula.ac.th",
     role: "expoStaff",
   },
 ];
@@ -101,7 +88,7 @@ const workshopsId = [randomUUID(), randomUUID()];
 const workshopStaffs: WorkshopStaff[] = [
   {
     id: randomUUID(),
-    email: "staff1@chula.ac.th",
+    email: "staff1_workshop@chula.ac.th",
     workshopId: workshopsId[0],
     role: "workshopStaff",
   },

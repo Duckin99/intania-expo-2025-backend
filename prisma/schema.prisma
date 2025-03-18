@@ -13,29 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ExpoStaff {
-  id    String @id @default(uuid()) @db.Uuid
-  email String @unique
-}
 
-model WorkshopStaff {
-  id    String @id @default(uuid()) @db.Uuid
-  email String @unique
-
-  workshop   Workshop @relation(fields: [workshopId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  workshopId String   @db.Uuid
-}
-
-model Visitor {
-  id                   String  @id @default(uuid()) @db.Uuid
+model User{
+  // field for every User
+  id                   String @id @default(uuid()) @db.Uuid
   email                String  @unique
-  sixDigitCode         String  @unique
-  name                 String
-  surname              String
-  gender               String
-  phone                String
-  category             String
-  visitDate            String
+
+  role                 String
+  // field for WorkshopStaff, ExpoStaff
+  workshop             Workshop? @relation(fields: [workshopId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  workshopId           String?   @db.Uuid
+  
+  // field for Visitor
+  sixDigitCode         String?  @unique
+  name                 String?
+  surname              String?
+  gender               String?
+  phone                String?
+  category             String?
+  visitDate            String?
   interestedActivities String?
   referralSource       String?
   studentLevel         String?
@@ -52,6 +48,7 @@ model Visitor {
   teacherSchool        String?
   teacherProvince      String?
   subjectTaught        String?
+  
 }
 
 model Building {
@@ -123,7 +120,7 @@ model Workshop {
   intaniaLocationId String?          @db.Uuid
 
   // not needed
-  workshopStaff WorkshopStaff[]
+  users  User[]
 }
 
 model WorkshopSlot {

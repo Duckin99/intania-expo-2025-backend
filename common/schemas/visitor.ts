@@ -1,8 +1,7 @@
 import validator from "validator";
 import { z } from "zod";
 
-export const CreateUserSchema = z.object({
-  //TODO : ??? sixDigitCode ???
+export const CreateVisitorSchema = z.object({
   name: z.string().min(1, "Cannot be empty"),
   surname: z.string().min(1, "Cannot be empty"),
   gender: z.string().min(1, "Cannot be empty"),
