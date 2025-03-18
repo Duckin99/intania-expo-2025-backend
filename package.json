@@ -7,17 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db.studio": "npx prisma studio",
+    "generate": "npx prisma generate",
+    "db.create": "docker create --name intania-expo-2025-db --env-file .env -p 5432:5432 bitnami/postgresql",
+    "db.start": "docker start -i intania-expo-2025-db",
     "db.reset": "npx prisma migrate reset",
     "db.migrate": "npx prisma migrate dev",
     "db.seed": "npx tsx ./prisma/seed.ts",
-    "db.create": "docker create --name intania-expo-2025-db --env-file .env -p 5432:5432 bitnami/postgresql",
-    "db.start": "docker start -i intania-expo-2025-db"
+    "db.studio": "npx prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",
     "dotenv": "^16.4.7",
     "firebase": "^11.4.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "15.2.2",
     "next-auth": "^4.24.11",
     "qrcode.react": "^4.2.0",
@@ -31,6 +33,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
